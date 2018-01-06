@@ -1,0 +1,15 @@
+{
+  "name": "originserverchecker",
+  "version": "1.0.0",
+  "description": "Checks Orgin Servers On WS request",
+  "main": "Checker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "net": "^1.0.2",
+    "websockets": "^0.2.0"
+  }
+}
