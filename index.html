@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Origin Server Checker</title>
+    </head>
+    <body>
+		<input id="clickMe" type="button" value="Check Server Staus " onclick="init();" />
+		<div id="ServerStaus">Click the button the check the servers</div>
+        <script language="javascript" type="text/javascript">
+			var wsUri = "ws://echo.websocket.org/";
+			var output;
+			function init()
+				{
+					document.getElementById('ServerStaus').innerHTML = "Checking Server Status Please Wait ...";
+					testWebSocket();
+				}
+			
+			function testWebSocket()
+				{
+					websocket = new WebSocket(wsUri);
+					websocket.onopen = function(evt) { onOpen(evt) };
+					websocket.onclose = function(evt) { onClose(evt) };
+					websocket.onmessage = function(evt) { onMessage(evt) };
+					websocket.onerror = function(evt) { onError(evt) };
+				}
+				
+			function onOpen(evt)
+				{
+					console.log("CONNECTED");
+					websocket.send("CheckServer");
+				}
+				
+			function onClose(evt)
+				{
+					console.log("DISCONNECTED");
+				}
+				
+			function onMessage(evt)
+				{
+					console.log(evt.data);
+					document.getElementById('ServerStaus').innerHTML = evt.data;
+					websocket.close();
+				}
+				
+			function onError(evt)
+				{
+					console.log(evt.data);
+				} 
+        </script>
+    </body>
+</html>
