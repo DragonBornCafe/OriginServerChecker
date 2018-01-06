@@ -4,7 +4,8 @@
   "description": "Checks Orgin Servers On WS request",
   "main": "Checker.js",
   "scripts": {
-    "test": "node Checker.js"
+    "start": "node Checker.js"
+	
   },
   "author": "",
   "license": "ISC",
