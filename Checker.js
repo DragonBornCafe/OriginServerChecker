@@ -1,5 +1,3 @@
-import { connect } from 'tls';
-
 var net = require('net');
 
 var HOST = '192.168.253.128';
