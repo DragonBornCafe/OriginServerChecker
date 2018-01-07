@@ -8,15 +8,11 @@ var client = new net.Socket();
 var server = require('websocket').server, http = require('http');
 var connect = require('connect');
 var serveStatic = require('serve-static');
-require('subdomain-router')
-({
-  host: 'origin-server-checker.herokuapp.com',
-  subdomains:
-  {
-    '': 32406,
-    'ws': 32407,
-  }
-}).listen(process.env.PORT || 5000);
+
+var HTMLServer = connect().use(serveStatic(__dirname)).listen(process.env.PORT || 5000, function(){
+    console.log('Server running');
+});
+
 function parseHexString(str) { 
     var result = [];
     while (str.length >= 8) { 
@@ -70,7 +66,7 @@ client.on('error', function() {
 });
 
 var websocket = new server({
-    httpServer: http.createServer().listen(32407)
+    httpServer: HTMLServer
 });
 
 websocket.on('request', function(request) {
@@ -88,6 +84,4 @@ websocket.on('request', function(request) {
     });
 }); 
 
-connect().use(serveStatic(__dirname)).listen(32406, function(){
-    console.log('Server running on 32406...');
-});
+
