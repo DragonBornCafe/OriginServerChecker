@@ -9,8 +9,9 @@ var server = require('websocket').server, http = require('http');
 var connect = require('connect');
 var serveStatic = require('serve-static');
 
-var HTMLServer = connect().use(serveStatic(__dirname)).listen(process.env.PORT || 5000, function(){
+var HTMLServer = connect().use(serveStatic(__dirname)).listen(5000, function(){
     console.log('Server running');
+    console.log('PORT: '+5000);
 });
 
 function parseHexString(str) { 
@@ -36,8 +37,10 @@ client.connect(PORT, HOST, function() {
 client.on('data', function(data) {
     if (data.includes('Pong')) {
         console.log('Pong');
+        i = 0;
         clearInterval(ID);
         connection.sendUTF('Relay is up! '+'Latency: '+i.toString()+'ms');
+        client.destroy();
     }
     else {
         const message = Buffer.from('0000002e05737201001e636f6d2e6c696665666f726d2e6d61696e2e6e6574776f726b2e50696e67787000000160cc5f37db','hex');
@@ -48,7 +51,10 @@ client.on('data', function(data) {
          i++;
          if(i > 5000){
             connection.sendUTF('Relay is overloaded');
-             clearInterval(ID);
+            i = 0;
+            clearInterval(ID);
+            client.destroy();
+
          }
         }, 1);
     }
@@ -60,7 +66,8 @@ client.on('close', function() {
     client.destroy();
 });
 
-client.on('error', function() {
+client.on('error', function(err) {
+    console.log(err);
     connection.sendUTF('Relay is down');
     client.destroy();
 });
