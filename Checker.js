@@ -9,9 +9,9 @@ var server = require('websocket').server, http = require('http');
 var connect = require('connect');
 var serveStatic = require('serve-static');
 
-var HTMLServer = connect().use(serveStatic(__dirname)).listen(5000, function(){
+var HTMLServer = connect().use(serveStatic(__dirname)).listen(process.env.PORT || 5000, function(){
     console.log('Server running');
-    console.log('PORT: '+5000);
+    console.log('PORT: '+process.env.PORT || 5000);
 });
 
 function parseHexString(str) { 
