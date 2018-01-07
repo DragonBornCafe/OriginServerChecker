@@ -89,5 +89,5 @@ websocket.on('request', function(request) {
 }); 
 
 connect().use(serveStatic(__dirname)).listen(32406, function(){
-    console.log('Server running on 80...');
+    console.log('Server running on 32406...');
 });
