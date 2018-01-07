@@ -1,5 +1,4 @@
 var net = require('net');
-
 var HOST = '192.168.253.128';
 var PORT = 29555;
 var i = 0;
@@ -14,8 +13,8 @@ require('subdomain-router')
   host: 'origin-server-checker.herokuapp.com',
   subdomains:
   {
-    '': 80,
-    'ws': 8080,
+    '': 32406,
+    'ws': 32407,
   }
 }).listen(process.env.PORT || 5000);
 function parseHexString(str) { 
@@ -71,7 +70,7 @@ client.on('error', function() {
 });
 
 var websocket = new server({
-    httpServer: http.createServer().listen(8080)
+    httpServer: http.createServer().listen(32407)
 });
 
 websocket.on('request', function(request) {
@@ -89,6 +88,6 @@ websocket.on('request', function(request) {
     });
 }); 
 
-connect().use(serveStatic(__dirname)).listen(80, function(){
+connect().use(serveStatic(__dirname)).listen(32406, function(){
     console.log('Server running on 80...');
 });
