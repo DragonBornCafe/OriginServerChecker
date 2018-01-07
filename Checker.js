@@ -4,12 +4,20 @@ var HOST = '192.168.253.128';
 var PORT = 29555;
 var i = 0;
 var ID;
-
+var connection;
 var client = new net.Socket();
 var server = require('websocket').server, http = require('http');
 var connect = require('connect');
 var serveStatic = require('serve-static');
-
+require('subdomain-router')
+({
+  host: 'origin-server-checker.herokuapp.com',
+  subdomains:
+  {
+    '': 80,
+    'ws': 8080,
+  }
+}).listen(process.env.PORT || 5000);
 function parseHexString(str) { 
     var result = [];
     while (str.length >= 8) { 
@@ -67,7 +75,7 @@ var websocket = new server({
 });
 
 websocket.on('request', function(request) {
-    var connection = request.accept(null, request.origin);
+    connection = request.accept(null, request.origin);
 
     connection.on('message', function(message) {
         console.log(message.utf8Data);
