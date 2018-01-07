@@ -3,11 +3,15 @@
         <title>Origin Server Checker</title>
     </head>
     <body>
-		<input id="clickMe" type="button" value="Check Server Staus " onclick="init();" />
+		<input id="clickMe" type="button" value="Check Server Staus " onclick="buttonClick();" />
 		<div id="ServerStaus">Click the button the check the servers</div>
         <script language="javascript" type="text/javascript">
 			var wsUri = "ws://origin-server-checker.herokuapp.com/";
 			var output;
+			function buttonClick() {
+				init();
+				setTimeout(function() { init(); }, 50);
+			}
 			function init()
 				{
 					document.getElementById('ServerStaus').innerHTML = "Checking Server Status Please Wait ...";
