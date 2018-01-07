@@ -1,5 +1,5 @@
 var net = require('net');
-var HOST = '192.168.253.128';
+var HOST = 'mimpve.host';
 var PORT = 29555;
 var i = 0;
 var ID;
