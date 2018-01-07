@@ -37,9 +37,9 @@ client.connect(PORT, HOST, function() {
 client.on('data', function(data) {
     if (data.includes('Pong')) {
         console.log('Pong');
-        i = 0;
         clearInterval(ID);
         connection.sendUTF('Relay is up! '+'Latency: '+i.toString()+'ms');
+        i = 0;
         client.destroy();
     }
     else {
