@@ -30,7 +30,7 @@ client.connect(PORT, HOST, function() {
     console.log('CONNECTED TO: ' + HOST + ':' + PORT);
     const message = Buffer.from('000000cb057372010023636f6d2e6c696665666f726d2e6d61696e2e6e6574776f726b2e48616e647368616b65787000010000000160cc43a635740028352f4f315a6234586b56366a516b635879354f2b45364562634b64665233424e4e664b446c413d3d73720100146a6176612e6d6174682e426967496e746567657278720100106a6176612e6c616e672e4e756d6265727870fffffffffffffffffffffffefffffffeffffffff75720000025b42acf317f8060854e00200007870000000010178740000740006322e302e3132','hex');
     client.write(message);
-    
+    ping();
 
 });
 }
@@ -42,8 +42,10 @@ client.on('data', function(data) {
         i = 0;
         client.destroy();
     }
-    else {
-        const message = Buffer.from('0000002e05737201001e636f6d2e6c696665666f726d2e6d61696e2e6e6574776f726b2e50696e67787000000160cc5f37db','hex');
+
+});
+function ping(){
+    const message = Buffer.from('0000002e05737201001e636f6d2e6c696665666f726d2e6d61696e2e6e6574776f726b2e50696e67787000000160cc5f37db','hex');
         client.write(message);
         console.log('Ping');
         ID = setInterval(function()
@@ -54,12 +56,9 @@ client.on('data', function(data) {
             i = 0;
             clearInterval(ID);
             client.destroy();
-
          }
         }, 1);
-    }
-});
-
+}
 // Add a 'close' event handler for the client socket
 client.on('close', function() {
     console.log('Connection closed');
