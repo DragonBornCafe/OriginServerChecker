@@ -7,6 +7,8 @@ var ID;
 
 var client = new net.Socket();
 var server = require('websocket').server, http = require('http');
+var connect = require('connect');
+var serveStatic = require('serve-static');
 
 function parseHexString(str) { 
     var result = [];
@@ -60,11 +62,11 @@ client.on('error', function() {
     client.destroy();
 });
 
-var socket = new server({
+var websocket = new server({
     httpServer: http.createServer().listen(8080)
 });
 
-socket.on('request', function(request) {
+websocket.on('request', function(request) {
     var connection = request.accept(null, request.origin);
 
     connection.on('message', function(message) {
@@ -78,3 +80,7 @@ socket.on('request', function(request) {
         console.log('connection closed');
     });
 }); 
+
+connect().use(serveStatic(__dirname)).listen(80, function(){
+    console.log('Server running on 80...');
+});
