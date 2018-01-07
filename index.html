@@ -4,6 +4,7 @@
     </head>
     <body>
 		<input id="clickMe" type="button" value="Check Server Staus " onclick="buttonClick();" />
+		<input id="clickMe" type="button" value="Check Server Staus Every 5 Seconds" onclick="buttonClickAuto();" />
 		<div id="ServerStaus">Click the button the check the servers</div>
         <script language="javascript" type="text/javascript">
 			var wsUri = "ws://origin-server-checker.herokuapp.com/";
@@ -11,6 +12,11 @@
 			function buttonClick() {
 				init();
 				setTimeout(function() { init(); }, 50);
+			}
+			function buttonClickAuto() {
+				setInterval(function(){
+					buttonClick();
+				},5000);
 			}
 			function init()
 				{
